@@ -1,0 +1,10 @@
+.searchBox{
+    flex: 1;
+}
+.searchForm{
+    display: flex;
+    margin-bottom: 20px;
+}
+.searchButton{
+    margin-left: 15px;
+}
