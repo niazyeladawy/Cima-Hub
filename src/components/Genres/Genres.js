@@ -24,7 +24,6 @@ const Genres = ({type,setPage,selectedGenres,setSelectedGenres,genres,setGenres}
         setGenres(data.genres);
     }
 
-    console.log(genres);
     useEffect(() => {
         fetchGenres();
         // eslint-disable-next-line

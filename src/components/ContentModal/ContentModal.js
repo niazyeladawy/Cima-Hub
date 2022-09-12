@@ -26,7 +26,7 @@ const style = {
 };
 
 
-export default function ContentModal({ children, media_type, id ,vote_average}) {
+export default function ContentModal({ children, media_type, id, vote_average }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -34,9 +34,14 @@ export default function ContentModal({ children, media_type, id ,vote_average}) 
     const [trailer, setTrailer] = useState([]);
 
     const fetchData = async () => {
-        const { data } = await axios.get(`https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
 
-        setContent(data);
+        try {
+            const { data } = await axios.get(`https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
+
+            setContent(data);
+        } catch (error) {
+
+        }
     }
 
     const fetchTrailer = async () => {
@@ -60,7 +65,8 @@ export default function ContentModal({ children, media_type, id ,vote_average}) 
                 aria-describedby="transition-modal-description"
                 open={open}
                 onClose={handleClose}
-                closeAfterTransition
+                closeAfterTransition 
+                
                 BackdropComponent={Backdrop}
                 BackdropProps={{
                     timeout: 500,
@@ -71,12 +77,12 @@ export default function ContentModal({ children, media_type, id ,vote_average}) 
                         content && (
                             <Box sx={style}>
                                 <div className="contentModal">
-                                
-                                    <img alt={content.name || content.title} className="content_portrait " style={{borderRadius:"10px" ,overflow:"Hidden"}} src={content.poster_path ? `${img_500}/${content.poster_path}` : unavailable} />
-                                    <img style={{borderRadius:"10px" ,overflow:"Hidden"}} alt={content.name || content.title} className="content_landscape" src={content.backdrop_path ? `${img_500}/${content.backdrop_path}` : unavailableLandscape} />
-                                    
+
+                                    <img alt={content.name || content.title} className="content_portrait " style={{ borderRadius: "10px", overflow: "Hidden" }} src={content.poster_path ? `${img_500}/${content.poster_path}` : unavailable} />
+                                    <img style={{ borderRadius: "10px", overflow: "Hidden" }} alt={content.name || content.title} className="content_landscape" src={content.backdrop_path ? `${img_500}/${content.backdrop_path}` : unavailableLandscape} />
+
                                     <div className="ContentModal_about">
-                                        <span className="ContnetModal_title" style={{fontSize:"2vw"}}>
+                                        <span className="ContnetModal_title" style={{ fontSize: "2vw" }}>
                                             {content.name || content.title} (
                                             {(
                                                 content.first_air_date ||
@@ -90,7 +96,7 @@ export default function ContentModal({ children, media_type, id ,vote_average}) 
                                                 <i className="tagline">{content.tagline}</i>
                                             )
                                         }
-                                        <Badge badgeContent={vote_average} color={vote_average >=7 ? "success" : "secondary"} style={{right:"50%"}}></Badge>
+                                        <Badge badgeContent={vote_average} color={vote_average >= 7 ? "success" : "secondary"} style={{ right: "50%" }}></Badge>
                                         <span className="ContnetModal_description">
                                             {content.overview}
                                         </span>

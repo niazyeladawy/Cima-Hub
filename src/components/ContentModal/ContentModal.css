@@ -55,6 +55,9 @@
   
     
 }
+.css-sox5kk-MuiBackdrop-root{
+  background-color: transparent  !important;
+}
 
 @media (min-width: 835px) {
     .content_landscape {
